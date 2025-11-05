@@ -1,2 +1,2 @@
-# Programagod-5C
-Grupo de programación acompañado 
+Bienvenido a mi primer repositorio 
+Derechos reservados a Ricardo Alaniz
