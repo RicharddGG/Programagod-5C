@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<head>
+    <title>Elementos de Boxeo</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #2d3748;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            min-width: 1200px;
+            overflow-x: auto;
+        }
+        .container {
+            display: flex;
+            width: 1200px;
+            min-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 40px;
+            background-color: #2d3748;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .boxer-section {
+            position: relative;
+            width: 550px;
+            min-width: 550px;
+            height: 600px;
+            background-color: #1a202c;
+            padding: 40px;
+            border-radius: 15px;
+            box-sizing: border-box;
+        }
+        .info-section {
+            position: relative;
+            width: 550px;
+            min-width: 550px;
+            background-color: #1a202c;
+            padding: 30px;
+            border-radius: 15px;
+            height: fit-content;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .info-title {
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 28px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4a5568;
+        }
+        .info-content {
+            min-height: 300px;
+            color: #e2e8f0;
+        }
+        .item-point {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #3182ce;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.2);
+        }
+        .item-point:hover {
+            transform: scale(1.2);
+            background-color: #4c5fb4;
+        }
+        
+        #point1 { top: 20px; left: 130px; }
+        #point2 { top: 40px; left: 180px; }
+        #point3 { top: 200px; left: 80px; }
+        #point4 { top: 200px; left: 220px; }
+        #point5 { top: 280px; left: 160px; }
+        #point6 { top: 400px; left: 140px; }
+
+        .equipment-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        .info-content div {
+            display: none;
+        }
+        .info-content div.active {
+            display: block;
+        }
+
+        .texto-rojo {
+            font-size: 40px;
+            font-weight: bold;
+            color: red;
+        }
+
+        #result-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #boton-reintentar {
+            width: 150px;
+            height: 50px;
+            background-color: #6b7fd7;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: none;
+        }
+        body {
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .main-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .boxer-diagram-section {
+            flex: 1;
+            padding: 2rem;
+            background-color: #e0e0e0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .info-panel-section {
+            flex: 1;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+        .boxer-figure {
+            position: relative;
+            width: 300px;
+            height: 500px;
+            margin-bottom: 2rem;
+        }
+        .boxer-figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .label-point {
+            position: absolute;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .label-point:hover {
+            transform: scale(1.1);
+            background-color: #dc2626;
+        }
+        #point1 { top: 0px; left: 155px; } /* Careta */
+        #point2 { top: 50px; left: 240px; } /* Protector Bucal */
+        #point3 { top: 250px; left: 60px; } /* Guante izquierdo */
+        #point4 { top: 240px; left: 280px; } /* Vendas (dentro de los guantes) */
+        #point5 { top: 300px; left: 220px; } /* Shorts */
+        #point6 { top: 400px; left: 155px; } /* Zapatillas */
+
+        .equipment-info {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .equipment-info.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-section {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 1rem;
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .quiz-results {
+            display: none;
+            padding: 1rem;
+            text-align: center;
+            background-color: #d1fae5;
+            border-radius: 8px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        /* invisi */
+        .invisible { display: none !important; }
+        .visible { display: block !important; }
+
+        /* posición del cuadro de resultado */
+        #result-box {
+            position: absolute;
+            top: 55%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            padding: 10px 14px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+            text-align: center;
+            z-index: 50;
+            min-width: 160px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="boxer-section" style="flex: 0 0 50%;">
+            <div style="position: relative; width: 400px; height: 500px; margin: 0 auto;">
+                <img src="Boxeador.png" alt="boxeador" style="width: 400px; height: 500px; object-fit: contain; position: absolute; top: 0; left: 0;">
+                <div class="item-point" id="point1" onclick="showInfo(1)">1</div>
+                <div class="item-point" id="point2" onclick="showInfo(2)">2</div>
+                <div class="item-point" id="point3" onclick="showInfo(3)">3</div>
+                <div class="item-point" id="point4" onclick="showInfo(4)">4</div>
+                <div class="item-point" id="point5" onclick="showInfo(5)">5</div>
+                <div class="item-point" id="point6" onclick="showInfo(6)">6</div>
+            </div>
+            <div style="text-align:center; margin-top:12px;">
+                <button id="boton-quiz-small" style="width:220px; height:40px; background:#6b7fd7; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Ir a la prueba de conocimientos</button>
+            </div>
+            <div id="fiesta" class="invisible">
+                <h1 id="titulo-calificacion" style="font-size:16px; margin:0 0 6px 0;">Tu calificación es:</h1>
+                <div id="box-win">
+                    <span id="calif" class="texto-rojo" style="font-size:22px;color:#d13b3b;"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section" style="flex: 0 0 45%; margin-left: 5%;">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800" id="panel-title">Elementos de Boxeo</h2>
+            <div id="info-display-container">
+                <div id="info-intro" class="equipment-info active">
+                    <p class="text-gray-600">Haz clic en los números del diagrama del boxeador para conocer cada elemento de su vestimenta y equipo.</p>
+                    <p class="text-gray-600 mt-2">Cuando estés listo, presiona "Hacer Prueba de Conocimiento" para evaluar tu aprendizaje.</p>
+                </div>
+
+                <div id="info1" class="equipment-info">
+                    <img src="https://placehold.co/400x180/ef4444/ffffff?text=CARETA" alt="Careta" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">1. Careta (Casco de Protección)</h3>
+                    <p class="text-gray-600">Se utiliza en el entrenamiento y en el boxeo amateur para proteger la cabeza de cortes y reducir el impacto de los golpes. Es fundamental para la seguridad.</p>
+                </div>
+                
+                <div id="info2" class="equipment-info">
+                    <img src="https://placehold.co/400x180/3b82f6/ffffff?text=PROTECTOR+BUCAL" alt="Protector Bucal" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">2. Protector Bucal</h3>
+                    <p class="text-gray-600">Esencial para proteger los dientes, encías y la mandíbula de impactos, previniendo cortes y conmociones. Su uso es obligatorio en todas las competencias.</p>
+                </div>
+                
+                <div id="info3" class="equipment-info">
+                    <img src="https://placehold.co/400x180/10b981/ffffff?text=GUANTES+DE+BOXEO" alt="Guantes de boxeo" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">3. Guantes de Boxeo</h3>
+                    <p class="text-gray-600">La herramienta principal. Su peso (en onzas, Oz) varía según el propósito: 8-10 Oz para competencia profesional y 12-16 Oz para entrenamiento, ofreciendo amortiguación.</p>
+                </div>
+                
+                <div id="info4" class="equipment-info">
+                    <img src="https://placehold.co/400x180/f59e0b/ffffff?text=VENDAS+DE+MANO" alt="Vendas" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">4. Vendas (de Mano)</h3>
+                    <p class="text-gray-600">Se usan para envolver las manos y muñecas, proporcionando soporte a las articulaciones y tendones. Previenen fracturas y lesiones, además de acolchar los nudillos dentro del guante.</p>
+                </div>
+                
+                <div id="info5" class="equipment-info">
+                    <img src="https://placehold.co/400x180/7c3aed/ffffff?text=SHORTS+DE+BOXEO" alt="Shorts de boxeo" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">5. Shorts de Boxeo</h3>
+                    <p class="text-gray-600">Diseñados para la comodidad y libertad de movimiento.</p>
+                </div>
+                
+                <div id="info6" class="equipment-info">
+                    <img src="https://placehold.co/400x180/06b6d4/ffffff?text=ZAPATILLAS+DE+BOXEO" alt="Zapatillas de boxeo" class="w-full h-auto rounded-lg mb-3 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800">6. Zapatillas de Boxeo</h3>
+                    <p class="text-gray-600">Ligeras y de caña alta para dar soporte al tobillo. La suela proporciona tracción necesaria para el juego de pies rápido y los giros en el ring.</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+        </div>
+
+        
+    </div>
+
+    <script>
+        function showInfo(itemNumber) {
+            document.querySelectorAll('.equipment-info').forEach(info => {
+                info.style.display = 'none';
+            });
+            const el = document.getElementById('info' + itemNumber);
+            if (el) el.style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showInfo(1);
+            const btn = document.getElementById('boton-quiz-small');
+            if (btn) btn.addEventListener('click', startQuiz);
+            const retry = document.getElementById('boton-reintentar');
+            if (retry) retry.addEventListener('click', function() { window.location.reload(); });
+        });
+
+        function startQuiz() {
+            let puntaje = 0;
+            let respuesta = null;
+
+            alert('Bienvenidos al cuestionario de boxeo');
+            alert('Responde correctamente todas las preguntas para ganar');
+
+            // Pregunta 1
+            respuesta = prompt('¿Cuál es la función principal de la careta en el boxeo?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('proteg') && (respuesta.toLowerCase().includes('cabeza') || respuesta.toLowerCase().includes('golpe'))) puntaje++;
+
+            // Pregunta 2
+            respuesta = prompt('¿Por qué es obligatorio el uso del protector bucal en todas las competencias?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('proteg') && (respuesta.toLowerCase().includes('diente') || respuesta.toLowerCase().includes('mandíbul'))) puntaje++;
+
+            // Pregunta 3
+            respuesta = prompt('¿Cuál es el rango de peso de los guantes de boxeo en onzas (oz)? (ej: 8-16)');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.includes('8') && respuesta.includes('16')) puntaje++;
+
+            // Pregunta 4
+            respuesta = prompt('¿Cuál es el propósito principal de las vendas en el boxeo?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('proteg') && respuesta.toLowerCase().includes('mano')) puntaje++;
+
+            // Pregunta 5
+            respuesta = prompt('¿Qué característica especial tienen los shorts de boxeo?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('movil') || respuesta.toLowerCase().includes('comod')) puntaje++;
+
+            // Pregunta 6
+            respuesta = prompt('¿Para qué sirven las botas de boxeo?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('agarre') || respuesta.toLowerCase().includes('estabil')) puntaje++;
+
+            // Pregunta 7
+            respuesta = prompt('¿Qué tipo de guantes se usan para el entrenamiento? (ej: 14-16)');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.includes('16') || respuesta.includes('14')) puntaje++;
+
+            // Pregunta 8
+            respuesta = prompt('¿En qué tipo de boxeo es obligatorio el uso de la careta?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('amateur')) puntaje++;
+
+            // Pregunta 9
+            respuesta = prompt('¿De qué material están hechos principalmente los protectores bucales?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('plást') || respuesta.toLowerCase().includes('silic')) puntaje++;
+
+            // Pregunta 10
+            respuesta = prompt('¿Por qué es importante el material de la suela en las botas de boxeo?');
+            if (respuesta === null) return; respuesta = respuesta.trim();
+            if (respuesta.toLowerCase().includes('agarre') || respuesta.toLowerCase().includes('desliz')) puntaje++;
+
+            // Resultado
+            if (puntaje >= 6) {
+                alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10.');
+                const fiesta = document.getElementById('fiesta');
+                if (fiesta) { fiesta.classList.remove('invisible'); fiesta.classList.add('visible'); }
+                const calif = document.getElementById('calif'); if (calif) calif.textContent = puntaje + '/10';
+                const btn = document.getElementById('boton-quiz-small'); if (btn) btn.style.display = 'none';
+            } else {
+                alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. ¡Sigue intentando!');
+                const retry = document.getElementById('boton-reintentar'); if (retry) { retry.classList.remove('invisible'); retry.classList.add('visible'); }
+                const btn = document.getElementById('boton-quiz-small'); if (btn) btn.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
