@@ -1,447 +1,370 @@
 <!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Elementos de Boxeo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos de Boxeo Interactivo</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
-            background-color: #2d3748;
-            font-family: Arial, sans-serif;
+            background-color: #1f2937; 
+            font-family: 'Inter', Arial, sans-serif;
             min-height: 100vh;
-            min-width: 1200px;
-            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             display: flex;
-            width: 1200px;
-            min-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            max-width: 1200px;
+            width: 95%;
+            margin: 40px auto;
+            padding: 40px;
             gap: 40px;
-            background-color: #2d3748;
-            position: relative;
+            background-color: #374151; 
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             box-sizing: border-box;
         }
+
         .boxer-section {
             position: relative;
-            width: 550px;
-            min-width: 550px;
+            width: 50%;
+            min-width: 450px;
             height: 600px;
-            background-color: #1a202c;
-            padding: 40px;
-            border-radius: 15px;
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
             box-sizing: border-box;
+            border: 2px solid #f97316;
         }
-        .info-section {
-            position: relative;
-            width: 550px;
-            min-width: 550px;
-            background-color: #1a202c;
-            padding: 30px;
-            border-radius: 15px;
-            height: fit-content;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-        .info-title {
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-size: 28px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #4a5568;
-        }
-        .info-content {
-            min-height: 300px;
-            color: #e2e8f0;
-        }
+
         .item-point {
             position: absolute;
-            width: 24px;
-            height: 24px;
-            background-color: #3182ce;
+            width: 20px;
+            height: 20px;
+            background-color: #ef4444; 
+            border: 3px solid #fef3c7; 
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.2);
-        }
-        .item-point:hover {
-            transform: scale(1.2);
-            background-color: #4c5fb4;
-        }
-        
-        #point1 { top: 20px; left: 130px; }
-        #point2 { top: 40px; left: 180px; }
-        #point3 { top: 200px; left: 80px; }
-        #point4 { top: 200px; left: 220px; }
-        #point5 { top: 280px; left: 160px; }
-        #point6 { top: 400px; left: 140px; }
-
-        .equipment-image {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-        }
-        
-        .info-content div {
-            display: none;
-        }
-        .info-content div.active {
-            display: block;
-        }
-
-        .texto-rojo {
-            font-size: 40px;
-            font-weight: bold;
-            color: red;
-        }
-
-        #result-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            text-align: center;
-            z-index: 1000;
-        }
-
-        #boton-reintentar {
-            width: 150px;
-            height: 50px;
-            background-color: #6b7fd7;
-            color: white;
-            text-align: center;
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 20px auto;
-            display: none;
-        }
-        body {
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .main-container {
-            display: flex;
-            width: 90%;
-            max-width: 1200px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .boxer-diagram-section {
-            flex: 1;
-            padding: 2rem;
-            background-color: #e0e0e0;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .info-panel-section {
-            flex: 1;
-            padding: 2rem;
-            background-color: #ffffff;
-            border-left: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-        }
-        .boxer-figure {
-            position: relative;
-            width: 300px;
-            height: 500px;
-            margin-bottom: 2rem;
-        }
-        .boxer-figure img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .label-point {
-            position: absolute;
-            background-color: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
-        .label-point:hover {
-            transform: scale(1.1);
-            background-color: #dc2626;
+        .item-point:hover {
+            background-color: #f97316; 
+            transform: scale(1.2);
         }
-        #point1 { top: 0px; left: 155px; } /* Careta */
-        #point2 { top: 50px; left: 240px; } /* Protector Bucal */
-        #point3 { top: 250px; left: 60px; } /* Guante izquierdo */
-        #point4 { top: 240px; left: 280px; } /* Vendas (dentro de los guantes) */
-        #point5 { top: 300px; left: 220px; } /* Shorts */
-        #point6 { top: 400px; left: 155px; } /* Zapatillas */
 
-        .equipment-info {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
+        #point1 { top: 75%; left: 38%; } /* Guantes */
+        #point2 { top: 60%; left: 45%; } /* Vendas */
+        #point3 { top: 15%; left: 48%; } /* Casco */
+        #point4 { top: 40%; left: 65%; } /* Protector bucal */
+        #point5 { top: 85%; left: 40%; } /* Zapatillas */
+        #point6 { top: 90%; left: 55%; } /* Protector Ingle */
+
+        .info-section {
+            width: 50%;
+            min-width: 450px;
+            background-color: #1a202c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            color: #d1d5db;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 2px solid #10b981;
         }
-        .equipment-info.active {
-            display: block;
+
+        .info-header {
+            border-bottom: 2px solid #4b5563;
+            padding-bottom: 10px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .info-header h2 {
+            margin: 0;
+            color: #f97316;
+            font-size: 1.8rem;
+        }
+
+        .info-content {
+            flex-grow: 1;
+        }
+
+        .info-content p {
+            line-height: 1.6;
+        }
+
+        #equipment-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+            margin-top: 15px;
+            background-color: #374151;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        #main-equipment-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 5px;
+            object-fit: contain;
         }
 
         .quiz-section {
-            display: none;
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1rem;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 1rem;
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .quiz-results {
-            display: none;
-            padding: 1rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #4b5563;
             text-align: center;
-            background-color: #d1fae5;
-            border-radius: 8px;
         }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translate(-50%, -60%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
+        .quiz-section button {
+            background-color: #10b981; /* Verde */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px #047857;
+            margin: 5px;
         }
-        /* invisi */
-        .invisible { display: none !important; }
-        .visible { display: block !important; }
+        .quiz-section button:hover {
+            background-color: #059669;
+        }
+        .quiz-section button:active {
+            box-shadow: 0 2px #047857;
+            transform: translateY(2px);
+        }
+        #quiz-result {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #f97316;
+            font-weight: bold;
+        }
+        .fiesta {
+            margin-top: 10px;
+            font-size: 2rem;
+            color: #fbbf24;
+            animation: pulse 1.5s infinite;
+        }
+        .invisible { display: none; }
+        .visible { display: block; }
 
-        #result-box {
-            position: absolute;
-            top: 55%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.95);
-            padding: 10px 14px;
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-            text-align: center;
-            z-index: 50;
-            min-width: 160px;
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-
     <div class="container">
-        <div class="boxer-section" style="flex: 0 0 50%;">
-            <div style="position: relative; width: 400px; height: 500px; margin: 0 auto;">
-                <img src="Images/Boxeador.png" alt="boxeador" style="width: 400px; height: 500px; object-fit: contain; position: absolute; top: 0; left: 0;">
-                <div class="item-point" id="point1" onclick="showInfo(1)">1</div>
-                <div class="item-point" id="point2" onclick="showInfo(2)">2</div>
-                <div class="item-point" id="point3" onclick="showInfo(3)">3</div>
-                <div class="item-point" id="point4" onclick="showInfo(4)">4</div>
-                <div class="item-point" id="point5" onclick="showInfo(5)">5</div>
-                <div class="item-point" id="point6" onclick="showInfo(6)">6</div>
+        <div class="boxer-section">
+            <div id="point1" class="item-point" onclick="showInfo(1)"></div>
+            <div id="point2" class="item-point" onclick="showInfo(2)"></div>
+            <div id="point3" class="item-point" onclick="showInfo(3)"></div>
+            <div id="point4" class="item-point" onclick="showInfo(4)"></div>
+            <div id="point5" class="item-point" onclick="showInfo(5)"></div>
+            <div id="point6" class="item-point" onclick="showInfo(6)"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-header">
+                <h2 id="main-title">Boxeo: Elementos Clave de Protección</h2>
             </div>
-            <div style="text-align:center; margin-top:12px;">
-                <button id="boton-quiz-small" style="width:220px; height:40px; background:#6b7fd7; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Ir a la prueba de conocimientos</button>
-            </div>
-            <div style="text-align:center; margin-top:12px;"></div>
-                <div id="boton-reintentar" class="invisible" style="display:block; width:220px; height:40px; background:#e16b6b; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; line-height:40px; margin:0 auto;">Reintentar prueba</div>
-            </div>
-            <div id="fiesta" class="invisible">
-                <h1 id="titulo-calificacion" style="font-size:16px; margin:0 0 6px 0;">Tu calificación es:</h1>
-                <div id="box-win">
-                    <span id="calif" class="texto-rojo" style="font-size:22px;color:#d13b3b;"></span>
+            
+            <div class="info-content">
+                <p id="main-text">
+                    Haz clic en los puntos rojos del diagrama para aprender sobre los elementos esenciales que protegen a un boxeador. Conoce cada pieza de equipo antes de poner a prueba tus conocimientos.
+                </p>
+                <div id="equipment-image-container">
+                    <img id="main-equipment-image" src="Images/Boxeador.png" alt="Imagen del equipo de boxeo">
                 </div>
             </div>
-        </div>
-        
-        <div class="info-section" style="flex: 0 0 45%; margin-left: 5%;">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800" id="panel-title">Elementos de Boxeo</h2>
-            <div id="info-display-container">
-            <div id="info-intro" class="equipment-info active">
-                <p class="text-gray-600">Haz clic en los números del diagrama del boxeador para conocer cada elemento de su vestimenta y equipo.</p>
-                <p class="text-gray-600 mt-2">Cuando estés listo, presiona "Ir a la prueba de conocimientos" para evaluar tu aprendizaje. Las respuestas serán de opción múltiple: selecciona 1, 2 o 3.</p>
+
+            <div class="quiz-section">
+                <button id="boton-quiz-small" onclick="startQuiz()">Ir a la Prueba de Conocimientos</button>
+                <button id="boton-reintentar" class="invisible" onclick="startQuiz()">Reintentar Prueba</button>
+
+                <div id="quiz-result">Tu puntaje: <span id="calif">--/10</span></div>
+                <div id="fiesta" class="invisible fiesta">¡🏆 Excelente! 🥊</div>
             </div>
 
-            <div id="info1" class="equipment-info">
-                <img src="Images/Careta.png" alt="Careta" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">1. Careta (Casco de Protección)</h3>
-                <p class="text-gray-600">Se utiliza en el entrenamiento y en el boxeo amateur para proteger la cabeza de cortes y reducir el impacto de los golpes. Es fundamental para la seguridad.</p>
-            </div>
-            
-            <div id="info2" class="equipment-info">
-                <img src="Images/Bucal.jpg" alt="Protector Bucal" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">2. Protector Bucal</h3>
-                <p class="text-gray-600">Esencial para proteger los dientes, encías y la mandíbula de impactos, previniendo cortes y conmociones. Su uso es obligatorio en todas las competencias.</p>
-            </div>
-            
-            <div id="info3" class="equipment-info">
-                <img src="Images/Guantes.PNG" alt="Guantes de boxeo" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">3. Guantes de Boxeo</h3>
-                <p class="text-gray-600">La herramienta principal. Su peso (en onzas, Oz) varía según el propósito: 8-10 Oz para competencia profesional y 12-16 Oz para entrenamiento, ofreciendo amortiguación.</p>
-            </div>
-            
-            <div id="info4" class="equipment-info">
-                <img src="Images/Vendaje.PNG" alt="Vendas" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">4. Vendas (de Mano)</h3>
-                <p class="text-gray-600">Se usan para envolver las manos y muñecas, proporcionando soporte a las articulaciones y tendones. Previenen fracturas y lesiones, además de acolchar los nudillos dentro del guante.</p>
-            </div>
-            
-            <div id="info5" class="equipment-info">
-                <img src="Images/Shorts.jpg" alt="Shorts de boxeo" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">5. Shorts de Boxeo</h3>
-                <p class="text-gray-600">Diseñados para la comodidad y libertad de movimiento.</p>
-            </div>
-            
-            <div id="info6" class="equipment-info">
-                <img src="Images/Botas.jpg" alt="Zapatillas de boxeo" class="h-auto rounded-lg mb-3 shadow-sm" style="max-width:200px; width:200px; display:block; margin:0 auto 12px;">
-                <h3 class="text-xl font-semibold text-gray-800">6. Zapatillas de Boxeo</h3>
-                <p class="text-gray-600">Ligeras y de caña alta para dar soporte al tobillo. La suela proporciona tracción necesaria para el juego de pies rápido y los giros en el ring.</p>
-            </div>
-            </div>
-
-            </div>
         </div>
-        </div>
-
-        
     </div>
 
-    
     <script>
+        const equipmentData = [
+            { 
+                title: "1. Guantes de Boxeo", 
+                text: "Esenciales para proteger las manos del boxeador y suavizar el impacto en el oponente. Vienen en diferentes onzas (oz) según el peso y el uso (entrenamiento o combate).", 
+                image: ""
+            },
+            { 
+                title: "2. Vendas", 
+                text: "Se usan debajo de los guantes. Su función principal es proteger los huesos pequeños de la mano y la muñeca, estabilizando la articulación durante el impacto.", 
+                image: "https://placehold.co/400x250/f97316/ffffff?text=VENDAS"
+            },
+            { 
+                title: "3. Casco Protector", 
+                text: "Utilizado en entrenamientos (sparring) para proteger la cabeza, las orejas y reducir el riesgo de cortes. No previene concusiones, pero minimiza lesiones superficiales.", 
+                image: "https://placehold.co/400x250/10b981/ffffff?text=CASCO"
+            },
+            { 
+                title: "4. Protector Bucal", 
+                text: "Protege los dientes, la mandíbula y previene cortes en los labios y la lengua. Es obligatorio tanto en entrenamientos como en combate oficial.", 
+                image: "https://placehold.co/400x250/3b82f6/ffffff?text=BUCAL"
+            },
+            { 
+                title: "5. Zapatillas de Boxeo", 
+                text: "Diseñadas para ser ligeras y flexibles, ofrecen un soporte superior al tobillo. Su suela delgada facilita el movimiento rápido y pivotar en el ring.", 
+                image: "https://placehold.co/400x250/6b7280/ffffff?text=ZAPATILLAS"
+            },
+            { 
+                title: "6. Protector de Ingle (Concha)", 
+                text: "Equipo de protección fundamental para los hombres, usado para proteger la zona pélvica de golpes bajos accidentales durante el combate.", 
+                image: "https://placehold.co/400x250/fbbf24/000000?text=INGLE"
+            }
+        ];
+
         function showInfo(itemNumber) {
-            document.querySelectorAll('.equipment-info').forEach(info => {
-                info.style.display = 'none';
-            });
-            const el = document.getElementById('info' + itemNumber);
-            if (el) el.style.display = 'block';
+            const data = equipmentData[itemNumber - 1];
+            
+            const titleElement = document.getElementById('main-title');
+            const textElement = document.getElementById('main-text');
+            
+            if (titleElement && textElement) {
+                titleElement.textContent = data.title;
+                textElement.textContent = data.text;
+            }
+
+            const imageElement = document.getElementById('main-equipment-image');
+            if (imageElement) {
+                imageElement.setAttribute('src', data.image);
+                imageElement.setAttribute('alt', `Imagen de ${data.title}`);
+            }
+
+            document.getElementById('fiesta').classList.add('invisible');
+            document.getElementById('boton-quiz-small').style.display = 'block';
+            document.getElementById('boton-reintentar').classList.add('invisible');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            showInfo(1);
-            const btn = document.getElementById('boton-quiz-small');
-            if (btn) btn.addEventListener('click', startQuiz);
-            const retry = document.getElementById('boton-reintentar');
-            if (retry) retry.addEventListener('click', function() { window.location.reload(); });
-        });
+
+        const questions = [
+            { 
+                question: "¿Cuál es el propósito principal de las **vendas** en el boxeo?", 
+                options: "1. Absorber el sudor\n2. Estabilizar la muñeca y proteger los huesos pequeños de la mano\n3. Dar más peso a los guantes", 
+                answer: 2 
+            },
+            { 
+                question: "¿Qué parte del cuerpo protege principalmente el **casco** durante el sparring?", 
+                options: "1. Los hombros\n2. La cabeza y reduce cortes\n3. La zona abdominal", 
+                answer: 2 
+            },
+            { 
+                question: "¿Qué elemento de protección es obligatorio en **todos** los combates y entrenamientos?", 
+                options: "1. Casco\n2. Zapatillas\n3. Protector bucal", 
+                answer: 3 
+            },
+            { 
+                question: "¿Qué indica la medida en 'onzas' (oz) de los **guantes**?", 
+                options: "1. El color\n2. El peso y nivel de acolchado\n3. El país de fabricación", 
+                answer: 2 
+            },
+            { 
+                question: "¿Por qué las **zapatillas** de boxeo tienen la suela delgada?", 
+                options: "1. Para ser más cómodas\n2. Para facilitar el movimiento rápido y pivotar\n3. Para reducir costos", 
+                answer: 2 
+            },
+            { 
+                question: "¿Qué elemento previene la rotura de la mandíbula y cortes en la boca?", 
+                options: "1. Guantes\n2. Protector Bucal\n3. Vendas", 
+                answer: 2 
+            },
+            { 
+                question: "¿Cuál es el objetivo del **Protector de Ingle**?", 
+                options: "1. Proteger de los golpes bajos accidentales\n2. Dar soporte lumbar\n3. Aumentar la velocidad", 
+                answer: 1 
+            },
+            { 
+                question: "¿Qué se utiliza para cubrir las manos *debajo* de los guantes?", 
+                options: "1. Casco\n2. Protector bucal\n3. Vendas", 
+                answer: 3 
+            },
+            { 
+                question: "¿Es el **casco** un elemento diseñado para prevenir concusiones?", 
+                options: "1. Sí, es su función principal\n2. No, solo minimiza lesiones superficiales y cortes\n3. Sí, si es de buena calidad", 
+                answer: 2 
+            },
+            { 
+                question: "¿Cuál de estos elementos es el más pesado y acolchado?", 
+                options: "1. Guantes\n2. Zapatillas\n3. Vendas", 
+                answer: 1 
+            }
+        ];
 
         function startQuiz() {
-            const questions = [
-            {
-                q: '¿Cuál es la función principal de la careta?',
-                options: ['Mejorar la visión', 'Proteger la cabeza de golpes', 'Aumentar la velocidad'],
-                answer: 2
-            },
-            {
-                q: '¿Por qué es obligatorio el uso del protector bucal en todas las competencias?',
-                options: ['Para estética', 'Reducir la sudoración', 'Proteger dientes y mandíbula'],
-                answer: 3
-            },
-            {
-                q: '¿Cuál es el rango común de peso de los guantes de boxeo (oz)?',
-                options: ['8-10 y 12-16', '2-4 y 6-8', '18-20 y 22-24'],
-                answer: 1
-            },
-            {
-                q: '¿Cuál es el propósito principal de las vendas en el boxeo?',
-                options: ['Aumentar el peso del puño', 'Soporte y protección de manos y muñeca', 'Decoración'],
-                answer: 2
-            },
-            {
-                q: '¿Qué característica especial tienen los shorts de boxeo?',
-                options: ['Son acolchados', 'Tienen suela antideslizante', 'Libertad de movimiento'],
-                answer: 3
-            },
-            {
-                q: '¿Para qué sirven las botas de boxeo?',
-                options: ['Aumentar el impacto de las patadas', 'Proporcionar tracción y soporte al tobillo', 'Reducir la altura del boxeador'],
-                answer: 2
-            },
-            {
-                q: '¿Qué guantes se usan típicamente para entrenamiento?',
-                options: ['8-10 oz', '14-16 oz', '4-6 oz'],
-                answer: 2
-            },
-            {
-                q: '¿En qué tipo de boxeo es más común el uso obligatorio de la careta?',
-                options: ['Boxeo profesional', 'Boxeo de exhibición', 'Boxeo amateur'],
-                answer: 3
-            },
-            {
-                q: '¿De qué material están hechos principalmente muchos protectores bucales?',
-                options: ['Cuero', 'Metal', 'Plástico/silicona'],
-                answer: 3
-            },
-            {
-                q: '¿Por qué es importante la suela en las botas de boxeo?',
-                options: ['Para absorber golpes directos', 'Para dar agarre y evitar deslizamientos', 'Para frigorificar el pie'],
-                answer: 2
-            }
-            ];
+            document.getElementById('fiesta').classList.add('invisible');
+            document.getElementById('boton-reintentar').classList.add('invisible');
 
             let puntaje = 0;
-
-            alert('Bienvenidos al cuestionario de boxeo (opción múltiple). Responde ingresando 1, 2 o 3.');
+            alert("¡Bienvenido al Quiz de Boxeo! Responde las 10 preguntas. Ingresa el número de la opción correcta (1, 2 o 3).");
 
             for (let i = 0; i < questions.length; i++) {
                 const item = questions[i];
-                let texto = 'Pregunta ' + (i+1) + ': ' + item.q + '\n\n';
-                texto += '1) ' + item.options[0] + '\n';
-                texto += '2) ' + item.options[1] + '\n';
-                texto += '3) ' + item.options[2] + '\n\n';
-                texto += '(Ingresa 1, 2 o 3)';
-                let respuesta = prompt(texto);
-                if (respuesta === null) return; // usuario canceló
-                respuesta = respuesta.trim();
-                if (!['1','2','3'].includes(respuesta)) {
-                    alert('Respuesta no válida. Ingresa 1, 2 o 3. Se repetirá la pregunta.');
-                    i--; // repetir la pregunta
-                    continue;
+                let respuesta;
+                
+                while (true) {
+                    respuesta = prompt(`Pregunta ${i + 1}/10: ${item.question}\n\nOpciones:\n${item.options}`);
+
+                    if (respuesta === null) {
+                        alert("Prueba cancelada. Puedes reintentar cuando quieras.");
+                        return;
+                    }
+
+                    respuesta = respuesta.trim();
+
+                    if (!['1','2','3'].includes(respuesta)) {
+                        alert('Respuesta no válida. Ingresa 1, 2 o 3.');
+                        continue;
+                    }
+                    break;
                 }
-                if (parseInt(respuesta, 10) === item.answer) puntaje++;
+
+                if (parseInt(respuesta, 10) === item.answer) {
+                    puntaje++;
+                }
             }
 
+            const resultElement = document.getElementById('quiz-result');
+            const califElement = document.getElementById('calif');
+            const btnQuiz = document.getElementById('boton-quiz-small');
+            const btnRetry = document.getElementById('boton-reintentar');
+
             if (puntaje >= 6) {
-                alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10.');
-                const fiesta = document.getElementById('fiesta');
-                if (fiesta) { fiesta.classList.remove('invisible'); fiesta.classList.add('visible'); }
-                const calif = document.getElementById('calif'); if (calif) calif.textContent = puntaje + '/10';
-                const btn = document.getElementById('boton-quiz-small'); if (btn) btn.style.display = 'none';
-                const retry = document.getElementById('boton-reintentar'); if (retry) retry.classList.add('invisible');
+                alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10. ¡Eres un campeón!');
+                document.getElementById('fiesta').classList.remove('invisible');
+                document.getElementById('fiesta').classList.add('visible');
+                btnRetry.classList.add('invisible');
             } else {
-                alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. ¡Sigue intentando!');
-                const retry = document.getElementById('boton-reintentar'); if (retry) { retry.classList.remove('invisible'); retry.classList.add('visible'); }
-                const btn = document.getElementById('boton-quiz-small'); if (btn) btn.style.display = 'none';
+                alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. Necesitas un poco más de entrenamiento. ¡Sigue intentando!');
+                btnRetry.classList.remove('invisible');
+                btnRetry.classList.add('visible');
             }
+            
+            if (califElement) califElement.textContent = puntaje + '/10';
+            if (btnQuiz) btnQuiz.style.display = 'none';
         }
+
+        window.onload = function() {
+            document.getElementById('boton-quiz-small').style.display = 'block';
+            document.getElementById('boton-reintentar').classList.add('invisible');
+        };
     </script>
 </body>
 </html>
