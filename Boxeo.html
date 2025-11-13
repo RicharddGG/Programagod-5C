@@ -22,7 +22,7 @@
             margin: 40px auto;
             padding: 40px;
             gap: 40px;
-            background-color: #374151; 
+            background-color: #374151;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             box-sizing: border-box;
@@ -33,19 +33,19 @@
             width: 50%;
             min-width: 450px;
             height: 600px;
-            background-size: contain; 
+            background-image: url('Images/Boxeador.png'); 
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             border-radius: 10px;
             box-sizing: border-box;
             border: 2px solid #f97316;
         }
-
         .item-point {
             position: absolute;
             width: 20px;
             height: 20px;
-            background-color: #ef4444; 
+            background-color: #ef4444;
             border: 3px solid #fef3c7; 
             border-radius: 50%;
             cursor: pointer;
@@ -53,7 +53,7 @@
             z-index: 10;
         }
         .item-point:hover {
-            background-color: #f97316; 
+            background-color: #f97316;
             transform: scale(1.2);
         }
 
@@ -62,7 +62,7 @@
         #point3 { top: 15%; left: 48%; } /* Casco */
         #point4 { top: 40%; left: 65%; } /* Protector bucal */
         #point5 { top: 85%; left: 40%; } /* Zapatillas */
-        #point6 { top: 90%; left: 55%; } /* Protector Ingle */
+        #point6 { top: 80%; left: 55%; } /* Shorts */
 
         .info-section {
             width: 50%;
@@ -182,6 +182,7 @@
                 <p id="main-text">
                     Haz clic en los puntos rojos del diagrama para aprender sobre los elementos esenciales que protegen a un boxeador. Conoce cada pieza de equipo antes de poner a prueba tus conocimientos.
                 </p>
+
                 <div id="equipment-image-container">
                     <img id="main-equipment-image" src="Images/Boxeador.png" alt="Imagen del equipo de boxeo">
                 </div>
@@ -203,38 +204,40 @@
             { 
                 title: "1. Guantes de Boxeo", 
                 text: "Esenciales para proteger las manos del boxeador y suavizar el impacto en el oponente. Vienen en diferentes onzas (oz) según el peso y el uso (entrenamiento o combate).", 
-                image: ""
+                image: "Images/Guantes.png"
             },
             { 
                 title: "2. Vendas", 
                 text: "Se usan debajo de los guantes. Su función principal es proteger los huesos pequeños de la mano y la muñeca, estabilizando la articulación durante el impacto.", 
-                image: "https://placehold.co/400x250/f97316/ffffff?text=VENDAS"
+                image: "Images/Vendas.png"
             },
             { 
                 title: "3. Casco Protector", 
                 text: "Utilizado en entrenamientos (sparring) para proteger la cabeza, las orejas y reducir el riesgo de cortes. No previene concusiones, pero minimiza lesiones superficiales.", 
-                image: "https://placehold.co/400x250/10b981/ffffff?text=CASCO"
+                image: "Images/Casco.png"
             },
             { 
                 title: "4. Protector Bucal", 
                 text: "Protege los dientes, la mandíbula y previene cortes en los labios y la lengua. Es obligatorio tanto en entrenamientos como en combate oficial.", 
-                image: "https://placehold.co/400x250/3b82f6/ffffff?text=BUCAL"
+                image: "Images/Bucal.png" 
             },
             { 
                 title: "5. Zapatillas de Boxeo", 
                 text: "Diseñadas para ser ligeras y flexibles, ofrecen un soporte superior al tobillo. Su suela delgada facilita el movimiento rápido y pivotar en el ring.", 
-                image: "https://placehold.co/400x250/6b7280/ffffff?text=ZAPATILLAS"
+                image: "Images/Zapatillas.png" 
             },
             { 
-                title: "6. Protector de Ingle (Concha)", 
-                text: "Equipo de protección fundamental para los hombres, usado para proteger la zona pélvica de golpes bajos accidentales durante el combate.", 
-                image: "https://placehold.co/400x250/fbbf24/000000?text=INGLE"
+                title: "6. Shorts de Boxeo",
+                text: "El Short es un elemento esencial para la comodidad y el movimiento. Son anchos y de tela liviana para permitir una patada o un movimiento de giro sin restricción.", // Descripción corregida
+                image: "Images/Shorts.png" 
             }
         ];
 
+        // Función para cambiar la información y la imagen al presionar un hotspot
         function showInfo(itemNumber) {
             const data = equipmentData[itemNumber - 1];
             
+            // Criterio 2: Realiza cambio de título y texto utilizando la propiedad textContent
             const titleElement = document.getElementById('main-title');
             const textElement = document.getElementById('main-text');
             
@@ -243,18 +246,21 @@
                 textElement.textContent = data.text;
             }
 
+            // Criterio 1: Realiza cambio de imagen utilizando la propiedad setAttribute y src
             const imageElement = document.getElementById('main-equipment-image');
             if (imageElement) {
                 imageElement.setAttribute('src', data.image);
                 imageElement.setAttribute('alt', `Imagen de ${data.title}`);
             }
 
+            // Ocultar resultados del Quiz al seleccionar un hotspot
             document.getElementById('fiesta').classList.add('invisible');
             document.getElementById('boton-quiz-small').style.display = 'block';
             document.getElementById('boton-reintentar').classList.add('invisible');
         }
 
 
+        // Preguntas del Quiz (Criterio 4: 10 preguntas)
         const questions = [
             { 
                 question: "¿Cuál es el propósito principal de las **vendas** en el boxeo?", 
@@ -287,8 +293,8 @@
                 answer: 2 
             },
             { 
-                question: "¿Cuál es el objetivo del **Protector de Ingle**?", 
-                options: "1. Proteger de los golpes bajos accidentales\n2. Dar soporte lumbar\n3. Aumentar la velocidad", 
+                question: "¿Cuál es el objetivo principal de los **Shorts de Boxeo**?", 
+                options: "1. Proporcionar comodidad y libertad de movimiento\n2. Dar soporte lumbar\n3. Aumentar la velocidad", 
                 answer: 1 
             },
             { 
@@ -308,40 +314,47 @@
             }
         ];
 
+        // Función principal del Quiz
         function startQuiz() {
+            // Ocultar resultados previos
             document.getElementById('fiesta').classList.add('invisible');
             document.getElementById('boton-reintentar').classList.add('invisible');
 
             let puntaje = 0;
+            // Criterio 5: Utiliza alert y prompt para realizar la prueba de conocimientos
             alert("¡Bienvenido al Quiz de Boxeo! Responde las 10 preguntas. Ingresa el número de la opción correcta (1, 2 o 3).");
 
             for (let i = 0; i < questions.length; i++) {
                 const item = questions[i];
                 let respuesta;
                 
+                // Bucle para asegurar respuesta válida
                 while (true) {
                     respuesta = prompt(`Pregunta ${i + 1}/10: ${item.question}\n\nOpciones:\n${item.options}`);
 
+                    // Si el usuario presiona Cancelar o cierra el prompt
                     if (respuesta === null) {
                         alert("Prueba cancelada. Puedes reintentar cuando quieras.");
-                        return;
+                        return; // Sale de la función startQuiz
                     }
 
                     respuesta = respuesta.trim();
 
+                    // Validación de respuesta: debe ser '1', '2' o '3'
                     if (!['1','2','3'].includes(respuesta)) {
                         alert('Respuesta no válida. Ingresa 1, 2 o 3.');
-                        continue;
+                        continue; // Vuelve a pedir la respuesta para la misma pregunta
                     }
-                    break;
+                    break; // La respuesta es válida, sale del bucle interno
                 }
 
+                // Criterio 6: Evalúa las respuestas correctas
                 if (parseInt(respuesta, 10) === item.answer) {
                     puntaje++;
                 }
             }
 
-            const resultElement = document.getElementById('quiz-result');
+            // Criterio 6: publica el resultado de aciertos al usuario
             const califElement = document.getElementById('calif');
             const btnQuiz = document.getElementById('boton-quiz-small');
             const btnRetry = document.getElementById('boton-reintentar');
@@ -357,11 +370,14 @@
                 btnRetry.classList.add('visible');
             }
             
+            // Actualiza el puntaje visible y oculta el botón inicial
             if (califElement) califElement.textContent = puntaje + '/10';
             if (btnQuiz) btnQuiz.style.display = 'none';
         }
 
+        // Inicializar la vista con el contenido de introducción
         window.onload = function() {
+            // Asegurarse de que el botón de quiz esté visible al cargar
             document.getElementById('boton-quiz-small').style.display = 'block';
             document.getElementById('boton-reintentar').classList.add('invisible');
         };
