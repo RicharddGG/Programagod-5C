@@ -208,13 +208,11 @@
                 <button id="boton-quiz-small" onclick="startQuiz()">Ir a la Prueba de Conocimientos</button>
                 <button id="boton-reintentar" class="invisible" onclick="startQuiz()">Reintentar Prueba</button>
 
-                <!-- PARTE MODIFICADA -->
                 <div id="result-container" class="invisible">
                     <img id="result-image" src="" alt="Resultado del Quiz">
-                    <div id="quiz-result">Tu puntaje: <span id="calif">--/10</span></div>
+                    <div id="quiz-result">Tu puntaje: <span id="calif">--/11</span></div>
                     <div id="fiesta" class="fiesta"></div>
                 </div>
-                <!-- FIN PARTE MODIFICADA -->
             </div>
 
         </div>
@@ -326,7 +324,10 @@
                 question: "¿Cuál de estos elementos es el más pesado y acolchado?", 
                 options: "1. Guantes\n2. Zapatillas\n3. Vendas", 
                 answer: 1 
-            }
+            },
+                question: "¿Para que fueron diseñadas las zapatillas?", 
+                options: "1. ser ligeras\n2. ser flexibles\n3. las dos", 
+                answer: 3
         ];
 
         function startQuiz() {
@@ -334,14 +335,14 @@
             document.getElementById('boton-reintentar').classList.add('invisible');
 
             let puntaje = 0;
-            alert("¡Bienvenido al Quiz de Boxeo! Responde las 10 preguntas. Ingresa el número de la opción correcta (1, 2 o 3).");
+            alert("¡Bienvenido al Quiz de Boxeo! Responde las 11 preguntas. Ingresa el número de la opción correcta (1, 2 o 3).");
 
             for (let i = 0; i < questions.length; i++) {
                 const item = questions[i];
                 let respuesta;
                 
                 while (true) {
-                    respuesta = prompt(`Pregunta ${i + 1}/10: ${item.question}\n\nOpciones:\n${item.options}`);
+                    respuesta = prompt(`Pregunta ${i + 1}/11: ${item.question}\n\nOpciones:\n${item.options}`);
 
                     if (respuesta === null) {
                         alert("Prueba cancelada. Puedes reintentar cuando quieras.");
@@ -357,7 +358,7 @@
                     break;
                 }
 
-                if (parseInt(respuesta, 10) === item.answer) {
+                if (parseInt(respuesta, 11) === item.answer) {
                     puntaje++;
                 }
             }
@@ -370,20 +371,20 @@
             const fiestaElement = document.getElementById('fiesta');
 
             if (puntaje >= 6) {
-                alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10. ¡Eres un campeón!');
+                alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 11. ¡Eres un campeón!');
                 resultImage.src = 'Images/Bien.jpg';
                 fiestaElement.textContent = '¡🏆 Excelente! 🥊';
                 fiestaElement.classList.remove('invisible');
                 btnRetry.classList.add('invisible');
             } else {
-                alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. Necesitas un poco más de entrenamiento. ¡Sigue intentando!');
+                alert('Has respondido ' + puntaje + ' preguntas correctamente de 11. Necesitas un poco más de entrenamiento. ¡Sigue intentando!');
                 resultImage.src = 'Images/Mal.gif';
                 fiestaElement.textContent = '¡Sigue entrenando! 💪';
                 fiestaElement.classList.remove('invisible');
                 btnRetry.classList.remove('invisible');
             }
             
-            if (califElement) califElement.textContent = puntaje + '/10';
+            if (califElement) califElement.textContent = puntaje + '/11';
             if (btnQuiz) btnQuiz.style.display = 'none';
             resultContainer.classList.remove('invisible');
         }
