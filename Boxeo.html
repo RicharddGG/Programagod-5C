@@ -57,12 +57,12 @@
             transform: scale(1.2);
         }
 
-        #point1 { top: 75%; left: 38%; } /* Guantes */
-        #point2 { top: 60%; left: 45%; } /* Vendas */
-        #point3 { top: 15%; left: 48%; } /* Casco */
-        #point4 { top: 40%; left: 65%; } /* Protector bucal */
+        #point1 { top: 45%; left: 20%; } /* Guantes */
+        #point2 { top: 46%; left: 65%; } /* Vendas */
+        #point3 { top: 1%; left: 38%; } /* Casco */
+        #point4 { top: 10%; left: 58%; } /* Protector bucal */
         #point5 { top: 85%; left: 40%; } /* Zapatillas */
-        #point6 { top: 80%; left: 55%; } /* Shorts */
+        #point6 { top: 60%; left: 50%; } /* Shorts */
 
         .info-section {
             width: 50%;
@@ -204,40 +204,38 @@
             { 
                 title: "1. Guantes de Boxeo", 
                 text: "Esenciales para proteger las manos del boxeador y suavizar el impacto en el oponente. Vienen en diferentes onzas (oz) según el peso y el uso (entrenamiento o combate).", 
-                image: "Images/Guantes.png"
+                image: "Images/Guantes.PNG"
             },
             { 
                 title: "2. Vendas", 
                 text: "Se usan debajo de los guantes. Su función principal es proteger los huesos pequeños de la mano y la muñeca, estabilizando la articulación durante el impacto.", 
-                image: "Images/Vendas.png"
+                image: "Images/Vendaje.PNG"
             },
             { 
                 title: "3. Casco Protector", 
                 text: "Utilizado en entrenamientos (sparring) para proteger la cabeza, las orejas y reducir el riesgo de cortes. No previene concusiones, pero minimiza lesiones superficiales.", 
-                image: "Images/Casco.png"
+                image: "Images/Careta.png"
             },
             { 
                 title: "4. Protector Bucal", 
                 text: "Protege los dientes, la mandíbula y previene cortes en los labios y la lengua. Es obligatorio tanto en entrenamientos como en combate oficial.", 
-                image: "Images/Bucal.png" 
+                image: "Images/Bucal.jpg" 
             },
             { 
                 title: "5. Zapatillas de Boxeo", 
                 text: "Diseñadas para ser ligeras y flexibles, ofrecen un soporte superior al tobillo. Su suela delgada facilita el movimiento rápido y pivotar en el ring.", 
-                image: "Images/Zapatillas.png" 
+                image: "Images/Botas.jpg" 
             },
             { 
                 title: "6. Shorts de Boxeo",
                 text: "El Short es un elemento esencial para la comodidad y el movimiento. Son anchos y de tela liviana para permitir una patada o un movimiento de giro sin restricción.", // Descripción corregida
-                image: "Images/Shorts.png" 
+                image: "Images/Shorts.jpg" 
             }
         ];
 
-        // Función para cambiar la información y la imagen al presionar un hotspot
         function showInfo(itemNumber) {
             const data = equipmentData[itemNumber - 1];
             
-            // Criterio 2: Realiza cambio de título y texto utilizando la propiedad textContent
             const titleElement = document.getElementById('main-title');
             const textElement = document.getElementById('main-text');
             
@@ -246,21 +244,17 @@
                 textElement.textContent = data.text;
             }
 
-            // Criterio 1: Realiza cambio de imagen utilizando la propiedad setAttribute y src
             const imageElement = document.getElementById('main-equipment-image');
             if (imageElement) {
                 imageElement.setAttribute('src', data.image);
                 imageElement.setAttribute('alt', `Imagen de ${data.title}`);
             }
 
-            // Ocultar resultados del Quiz al seleccionar un hotspot
             document.getElementById('fiesta').classList.add('invisible');
             document.getElementById('boton-quiz-small').style.display = 'block';
             document.getElementById('boton-reintentar').classList.add('invisible');
         }
 
-
-        // Preguntas del Quiz (Criterio 4: 10 preguntas)
         const questions = [
             { 
                 question: "¿Cuál es el propósito principal de las **vendas** en el boxeo?", 
@@ -314,47 +308,39 @@
             }
         ];
 
-        // Función principal del Quiz
         function startQuiz() {
-            // Ocultar resultados previos
             document.getElementById('fiesta').classList.add('invisible');
             document.getElementById('boton-reintentar').classList.add('invisible');
 
             let puntaje = 0;
-            // Criterio 5: Utiliza alert y prompt para realizar la prueba de conocimientos
             alert("¡Bienvenido al Quiz de Boxeo! Responde las 10 preguntas. Ingresa el número de la opción correcta (1, 2 o 3).");
 
             for (let i = 0; i < questions.length; i++) {
                 const item = questions[i];
                 let respuesta;
                 
-                // Bucle para asegurar respuesta válida
                 while (true) {
                     respuesta = prompt(`Pregunta ${i + 1}/10: ${item.question}\n\nOpciones:\n${item.options}`);
 
-                    // Si el usuario presiona Cancelar o cierra el prompt
                     if (respuesta === null) {
                         alert("Prueba cancelada. Puedes reintentar cuando quieras.");
-                        return; // Sale de la función startQuiz
+                        return; 
                     }
 
                     respuesta = respuesta.trim();
 
-                    // Validación de respuesta: debe ser '1', '2' o '3'
                     if (!['1','2','3'].includes(respuesta)) {
                         alert('Respuesta no válida. Ingresa 1, 2 o 3.');
-                        continue; // Vuelve a pedir la respuesta para la misma pregunta
+                        continue;
                     }
-                    break; // La respuesta es válida, sale del bucle interno
+                    break;
                 }
 
-                // Criterio 6: Evalúa las respuestas correctas
                 if (parseInt(respuesta, 10) === item.answer) {
                     puntaje++;
                 }
             }
 
-            // Criterio 6: publica el resultado de aciertos al usuario
             const califElement = document.getElementById('calif');
             const btnQuiz = document.getElementById('boton-quiz-small');
             const btnRetry = document.getElementById('boton-reintentar');
@@ -370,14 +356,11 @@
                 btnRetry.classList.add('visible');
             }
             
-            // Actualiza el puntaje visible y oculta el botón inicial
             if (califElement) califElement.textContent = puntaje + '/10';
             if (btnQuiz) btnQuiz.style.display = 'none';
         }
 
-        // Inicializar la vista con el contenido de introducción
         window.onload = function() {
-            // Asegurarse de que el botón de quiz esté visible al cargar
             document.getElementById('boton-quiz-small').style.display = 'block';
             document.getElementById('boton-reintentar').classList.add('invisible');
         };
