@@ -371,13 +371,13 @@
 
             if (puntaje >= 6) {
                 alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10. ¡Eres un campeón!');
-                resultImage.src = 'Images/Bueno.png';
+                resultImage.src = 'Images/Bien.jpg';
                 fiestaElement.textContent = '¡🏆 Excelente! 🥊';
                 fiestaElement.classList.remove('invisible');
                 btnRetry.classList.add('invisible');
             } else {
                 alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. Necesitas un poco más de entrenamiento. ¡Sigue intentando!');
-                resultImage.src = 'Images/Mal.png';
+                resultImage.src = 'Images/Mal.gif';
                 fiestaElement.textContent = '¡Sigue entrenando! 💪';
                 fiestaElement.classList.remove('invisible');
                 btnRetry.classList.remove('invisible');
