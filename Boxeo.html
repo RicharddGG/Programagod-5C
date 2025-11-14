@@ -121,7 +121,7 @@
             text-align: center;
         }
         .quiz-section button {
-            background-color: #10b981; /* Verde */
+            background-color: #10b981; 
             color: white;
             padding: 10px 20px;
             border: none;
@@ -145,9 +145,25 @@
             color: #f97316;
             font-weight: bold;
         }
+
+        #result-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #result-image {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            object-fit: contain;
+            transition: opacity 0.5s;
+        }
+
         .fiesta {
             margin-top: 10px;
-            font-size: 2rem;
+            font-size: 1.2rem;
             color: #fbbf24;
             animation: pulse 1.5s infinite;
         }
@@ -192,8 +208,13 @@
                 <button id="boton-quiz-small" onclick="startQuiz()">Ir a la Prueba de Conocimientos</button>
                 <button id="boton-reintentar" class="invisible" onclick="startQuiz()">Reintentar Prueba</button>
 
-                <div id="quiz-result">Tu puntaje: <span id="calif">--/10</span></div>
-                <div id="fiesta" class="invisible fiesta">¡🏆 Excelente! 🥊</div>
+                <!-- PARTE MODIFICADA -->
+                <div id="result-container" class="invisible">
+                    <img id="result-image" src="" alt="Resultado del Quiz">
+                    <div id="quiz-result">Tu puntaje: <span id="calif">--/10</span></div>
+                    <div id="fiesta" class="fiesta"></div>
+                </div>
+                <!-- FIN PARTE MODIFICADA -->
             </div>
 
         </div>
@@ -228,7 +249,7 @@
             },
             { 
                 title: "6. Shorts de Boxeo",
-                text: "El Short es un elemento esencial para la comodidad y el movimiento. Son anchos y de tela liviana para permitir una patada o un movimiento de giro sin restricción.", // Descripción corregida
+                text: "El Short es un elemento esencial para la comodidad y el movimiento. Son anchos y de tela liviana para permitir una patada o un movimiento de giro sin restricción.", 
                 image: "Images/Shorts.jpg" 
             }
         ];
@@ -250,7 +271,7 @@
                 imageElement.setAttribute('alt', `Imagen de ${data.title}`);
             }
 
-            document.getElementById('fiesta').classList.add('invisible');
+            document.getElementById('result-container').classList.add('invisible');
             document.getElementById('boton-quiz-small').style.display = 'block';
             document.getElementById('boton-reintentar').classList.add('invisible');
         }
@@ -309,7 +330,7 @@
         ];
 
         function startQuiz() {
-            document.getElementById('fiesta').classList.add('invisible');
+            document.getElementById('result-container').classList.add('invisible');
             document.getElementById('boton-reintentar').classList.add('invisible');
 
             let puntaje = 0;
@@ -344,20 +365,27 @@
             const califElement = document.getElementById('calif');
             const btnQuiz = document.getElementById('boton-quiz-small');
             const btnRetry = document.getElementById('boton-reintentar');
+            const resultContainer = document.getElementById('result-container');
+            const resultImage = document.getElementById('result-image');
+            const fiestaElement = document.getElementById('fiesta');
 
             if (puntaje >= 6) {
                 alert('¡Felicidades! Has respondido correctamente ' + puntaje + ' preguntas de 10. ¡Eres un campeón!');
-                document.getElementById('fiesta').classList.remove('invisible');
-                document.getElementById('fiesta').classList.add('visible');
+                resultImage.src = 'Images/Bueno.png';
+                fiestaElement.textContent = '¡🏆 Excelente! 🥊';
+                fiestaElement.classList.remove('invisible');
                 btnRetry.classList.add('invisible');
             } else {
                 alert('Has respondido ' + puntaje + ' preguntas correctamente de 10. Necesitas un poco más de entrenamiento. ¡Sigue intentando!');
+                resultImage.src = 'Images/Mal.png';
+                fiestaElement.textContent = '¡Sigue entrenando! 💪';
+                fiestaElement.classList.remove('invisible');
                 btnRetry.classList.remove('invisible');
-                btnRetry.classList.add('visible');
             }
             
             if (califElement) califElement.textContent = puntaje + '/10';
             if (btnQuiz) btnQuiz.style.display = 'none';
+            resultContainer.classList.remove('invisible');
         }
 
         window.onload = function() {
